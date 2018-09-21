@@ -1,7 +1,7 @@
 {
   "name": "blocipedia-node",
   "version": "1.0.0",
-  "description": "mkdir blocipedia-node",
+  "description": "An application that allows users to create, collaborate, and share wikis",
   "main": "src/server.js",
   "scripts": {
     "test": "export NODE_ENV=test && jasmine",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^3.0.0",
+    "morgan": "^1.9.1",
     "request": "^2.83.0"
   },
   "dependencies": {
