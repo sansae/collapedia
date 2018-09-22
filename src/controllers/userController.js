@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const sgMail = require('@sendgrid/mail');
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -18,9 +19,15 @@ module.exports = {
         req.flash("error", err);
         res.redirect("/users/signup");
       } else {
-        req.flash("notice", "You've successfully signed up!");
+        req.flash("notice", "You've successfully signed up! An email confirmation has been sent to you.");
         res.redirect("/");
       }
-    });
-  }
+
+      if (user) {
+        userQueries.sendEmail(newUser);
+      }
+    })
+  },
+
+
 }

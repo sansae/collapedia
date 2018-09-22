@@ -22,11 +22,6 @@ module.exports = {
       cookie: { maxAge: 1.21e+9 }
     }));
 
-    app.use((req, res, next) => {
-      res.locals.currentUser = req.user;
-      next();
-    });
-
     app.use(flash());
     app.use(express.static(path.join(__dirname, "..", "assets")));
 
