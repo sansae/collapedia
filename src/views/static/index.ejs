@@ -5,12 +5,16 @@
   </head>
 
   <body>
+    <% include ./partials/navbar.ejs %>
+
     <main class="container">
       <header class="jumbotron my-4">
         <h1 class="display-3">Welcome to Blocipedia</h1>
         <p class="lead">An application that allows users to create, collaborate, and share wikis.</p>
-        <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign up</a>
+        <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
       </header>
     </main>
+
+    <% include ./partials/baseScripts.ejs %>
   </body>
 </html>
