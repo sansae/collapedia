@@ -16,7 +16,7 @@ module.exports = {
     app.use(expressValidator());
 
     app.use(session({
-      secret: process.env.cookieSecret,
+      secret: "passIsPass",
       resave: false,
       saveUninitialized: false,
       cookie: { maxAge: 1.21e+9 }
