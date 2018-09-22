@@ -19,6 +19,8 @@
     "dotenv": "^5.0.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
     "express-validator": "^5.0.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
