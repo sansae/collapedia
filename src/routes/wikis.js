@@ -7,4 +7,6 @@ router.get("/wikis", wikiController.wiki);
 
 router.get("/wikis/new", wikiController.new);
 
+router.post("/wikis/create", wikiController.create);
+
 module.exports = router;
