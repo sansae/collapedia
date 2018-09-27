@@ -26,7 +26,17 @@ module.exports = {
       if (err) {
         res.redirect(500, "/wikis/new");
       } else {
-        res.redirect(303, "/wikis");
+        res.redirect(303, `/wikis/${wiki.id}`);
+      }
+    });
+  },
+
+  show(req, res, next) {
+    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+      if (err) {
+        res.redirect(404, "/");
+      } else {
+        res.render("wikis/show", {wiki});
       }
     });
   },

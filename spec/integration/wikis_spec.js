@@ -45,4 +45,41 @@ describe("routes : wikis", () => {
       });
     });
   });
+
+  it("should create a new wiki and redirect", (done) => {
+    const options = {
+      url: `${base}create`,
+      form: {
+        title: "Wiki Leaks",
+        body: "Blame Southpark",
+        private: false
+      }
+    };
+
+    request.post(options,
+      (err, res, body) => {
+        Wiki.findOne({where: {title: "Wiki Leaks"}})
+        .then((wiki) => {
+          expect(res.statusCode).toBe(303);
+          expect(wiki.title).toBe("Wiki Leaks");
+          expect(wiki.body).toBe("Blame Southpark");
+          done();
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
+      }
+    );
+  });
+
+  describe("GET /wikis/:id", () => {
+    it("should render a show view for the selected wiki", (done) => {
+      request.get(`${base}${this.wiki.id}`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Cryptocurrency");
+        done();
+      });
+    });
+  });
 });
