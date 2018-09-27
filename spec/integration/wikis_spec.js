@@ -111,4 +111,27 @@ describe("routes : wikis", () => {
       });
     });
   });
+
+  describe("POST /wikis/:id/update", () => {
+    it("should update the wiki with the associated id", (done) => {
+      const options = {
+        url: `${base}${this.wiki.id}/update`,
+        form: {
+          title: "Bitcoins",
+          body: "The king of cryto?",
+          private: true
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+        Wiki.findOne({
+          where: { id: this.wiki.id }
+        })
+        .then((wiki) => {
+          expect(wiki.title).toBe("Bitcoins");
+          done();
+        });
+      });
+    });
+  });
 });
