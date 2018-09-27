@@ -50,4 +50,14 @@ module.exports = {
       }
     });
   },
+
+  edit(req, res, next) {
+    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+      if (err) {
+        res.redirect(404, "/");
+      } else {
+        res.render("wikis/edit", {wiki});
+      }
+    })
+  }
 }

@@ -101,4 +101,14 @@ describe("routes : wikis", () => {
       });
     });
   });
+
+  describe("GET /wikis/:id/edit", () => {
+    it("should render an edit view form for the selected wiki with pre-populated values", (done) => {
+      request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+        expect(body).toContain("Edit Wiki");
+        expect(body).toContain("Cryptocurrency");
+        done();
+      });
+    });
+  });
 });
