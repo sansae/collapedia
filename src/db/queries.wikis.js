@@ -34,4 +34,17 @@ module.exports = {
       callback(err);
     })
   },
+
+  deleteWiki(req, callback) {
+    return Wiki.findById(req.params.id)
+    .then((wiki) => {
+      wiki.destroy()
+      .then((res) => {
+        callback(null, wiki);
+      });
+    })
+    .catch((err) => {
+      callback(err);
+    });
+  },
 }

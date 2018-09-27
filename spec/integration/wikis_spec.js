@@ -46,32 +46,34 @@ describe("routes : wikis", () => {
     });
   });
 
-  it("should create a new wiki and redirect", (done) => {
-    const options = {
-      url: `${base}create`,
-      form: {
-        title: "Wiki Leaks",
-        body: "Blame Southpark",
-        private: false
-      }
-    };
+  describe("POST /wikis/create", () => {
+    it("should create a new wiki and redirect", (done) => {
+      const options = {
+        url: `${base}create`,
+        form: {
+          title: "Wiki Leaks",
+          body: "Blame Southpark",
+          private: false
+        }
+      };
 
-    request.post(options,
-      (err, res, body) => {
-        Wiki.findOne({where: {title: "Wiki Leaks"}})
-        .then((wiki) => {
-          expect(res.statusCode).toBe(303);
-          expect(wiki.title).toBe("Wiki Leaks");
-          expect(wiki.body).toBe("Blame Southpark");
-          done();
-        })
-        .catch((err) => {
-          console.log(err);
-          done();
-        });
-      }
-    );
-  });
+      request.post(options,
+        (err, res, body) => {
+          Wiki.findOne({where: {title: "Wiki Leaks"}})
+          .then((wiki) => {
+            expect(res.statusCode).toBe(303);
+            expect(wiki.title).toBe("Wiki Leaks");
+            expect(wiki.body).toBe("Blame Southpark");
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+            done();
+          });
+        }
+      );
+    });
+  })
 
   describe("GET /wikis/:id", () => {
     it("should render a show view for the selected wiki", (done) => {
@@ -79,6 +81,23 @@ describe("routes : wikis", () => {
         expect(err).toBeNull();
         expect(body).toContain("Cryptocurrency");
         done();
+      });
+    });
+  });
+
+  describe("POST /wikis/:id/destroy", () => {
+    it("should delete the wiki with the associated id", (done) => {
+      Wiki.all()
+      .then((wikis) => {
+        const wikisBeforeDelete = wikis.length;
+        expect(wikisBeforeDelete).toBe(1);
+        request.post(`${base}${this.wiki.id}/destroy`, (err, res, body) => {
+          Wiki.all()
+          .then((wikis) => {
+            expect(wikis.length).toBe(wikisBeforeDelete - 1);
+            done();
+          });
+        });
       });
     });
   });
