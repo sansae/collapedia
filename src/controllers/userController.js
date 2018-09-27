@@ -20,8 +20,10 @@ module.exports = {
         req.flash("error", err);
         res.redirect("/users/signup");
       } else {
-        req.flash("notice", "You've successfully signed up! An email confirmation has been sent to you.");
-        res.redirect("/");
+        passport.authenticate("local")(req, res, () => {
+          req.flash("notice", "You've successfully signed up! An email confirmation has been sent to you.");
+          res.redirect("/");
+        })
       }
 
       if (user) {
@@ -35,18 +37,30 @@ module.exports = {
   },
 
   signIn(req, res, next) {
-    passport.authenticate("local")(req, res, function () {
-      if(!req.user){
-        req.flash("notice", "Sign in failed. Please try again.")
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        req.flash("notice", `Sign in failed. ${info.message}`);
         res.redirect("/users/signin");
-      } else {
+      }
+
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+
         req.flash("notice", "You've successfully signed in!");
         res.redirect("/");
-      }
-    })
+      });
+    })(req, res, next);
   },
 
   signOut(req, res, next) {
-
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
   }
 }
