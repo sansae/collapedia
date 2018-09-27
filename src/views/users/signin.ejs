@@ -7,10 +7,12 @@
   <body>
     <% include ../static/partials/navbar.ejs %>
 
-    <main class="container">
+    <main class="container" id="signIn">
       <h1>Sign In</h1>
 
-      <form action="/users/signin" method="post">
+      <% include ../static/partials/messages.ejs %>
+
+      <form action="/users/signin" method="POST">
         <div class="form-group">
           <label for="email">Email</label>
           <input name="email" aria-describedby="emailHelp" type="text" class="form-control" placeholder="Enter email">

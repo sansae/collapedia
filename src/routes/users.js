@@ -11,4 +11,6 @@ router.post("/users", validation.validateUsers, userController.create);
 
 router.get("/users/signin", userController.signInForm);
 
+router.post("/users/signin", userController.signIn);
+
 module.exports = router;

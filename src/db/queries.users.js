@@ -25,14 +25,14 @@ module.exports = {
 
     const output = `
     <div>
-      <h3>Hi ${newUser.username}, Thank you for joining Blocipedia! We hope you enjoy our service!</h3>
+      <h3>Hi ${newUser.dataValues.username}, Thank you for joining Blocipedia! We hope you enjoy our service!</h3>
     </div>
     <p>- Blocipedia Team</p>
     `;
 
     const msg = {
       from: "blocipedia@mail.com",
-      to: newUser.email,
+      to: newUser.dataValues.email,
       subject: "Blocipedia Sign-Up Confirmation",
       html: output
     };

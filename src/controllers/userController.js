@@ -1,5 +1,6 @@
 const userQueries = require("../db/queries.users.js");
 const sgMail = require('@sendgrid/mail');
+const passport = require("passport");
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -24,12 +25,24 @@ module.exports = {
       }
 
       if (user) {
-        userQueries.sendEmail(newUser);
+        userQueries.sendEmail(user);
       }
     });
   },
 
   signInForm(req, res, next) {
     res.render("users/signin");
+  },
+
+  signIn(req, res, next){
+    passport.authenticate("local")(req, res, function () {
+      if(!req.user){
+        req.flash("notice", "Sign in failed. Please try again.")
+        res.redirect("/users/signin");
+      } else {
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      }
+    })
   },
 }
