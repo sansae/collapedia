@@ -26,8 +26,10 @@ module.exports = {
       if (user) {
         userQueries.sendEmail(newUser);
       }
-    })
+    });
   },
 
-
+  signInForm(req, res, next) {
+    res.render("users/signin");
+  },
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <h1>Sign In</h1>
+
+      <form action="/users/signin" method="post">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input name="email" aria-describedby="emailHelp" type="text" class="form-control" placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input name="password" aria-describedby="passwordHelp" type="password" class="form-control" placeholder="Enter password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>
