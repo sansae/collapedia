@@ -10,4 +10,8 @@ module.exports = {
       }
     });
   },
+
+  new(req, res, next) {
+    res.render("wikis/new");
+  },
 }
