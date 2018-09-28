@@ -12,7 +12,7 @@ module.exports = {
     });
   },
 
-  new(req, res, next) {    
+  new(req, res, next) {
     const authorized = new Authorizer(req.user).new();
 
     if (authorized) {
@@ -61,12 +61,19 @@ module.exports = {
 
   edit(req, res, next) {
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if (err) {
+      if (err || wiki == null) {
         res.redirect(404, "/");
       } else {
-        res.render("wikis/edit", {wiki});
-      }
-    })
+        const authorized = new Authorizer(req.user, wiki).edit();
+
+        if (authorized) {
+          res.render("wikis/edit", {wiki});
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/wikis/${req.params.id}`);
+        }
+      };
+    });
   },
 
   update(req, res, next) {
