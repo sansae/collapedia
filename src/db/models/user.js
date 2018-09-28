@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "standard"
+    },
   }, {});
   User.associate = function(models) {
     User.hasMany(models.Wiki, {
@@ -23,5 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       as: "wikis"
     })
   };
+
+  User.prototype.isAdmin = function() {
+    return this.role === "admin";
+  };
+  
   return User;
 };
