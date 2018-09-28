@@ -15,14 +15,15 @@ module.exports = {
         where: {email}
       })
       .then((user) => {
-        if (!user || !authHelper.comparePass(password, user.password)) {
-          return done(null, false, { message: "Invalid email or password" });
+        if (!authHelper.comparePass(password, user.password)) {
+          return done(null, false, { message: "Invalid password" });
         }
 
         return done(null, user);
       })
     }));
 
+    /* serializeUser and deserializeUser tell Passport.js how to get information from a user object to store in a session (serialize), and how to take that information and turn it back into a user object (deserialize) */
     passport.serializeUser((user, callback) => {
       callback(null, user.id);
     });

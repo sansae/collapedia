@@ -1,6 +1,7 @@
 const userQueries = require("../db/queries.users.js");
 const sgMail = require('@sendgrid/mail');
 const passport = require("passport");
+const User = require("../db/models").User;
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -37,25 +38,35 @@ module.exports = {
   },
 
   signIn(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-      if (err) {
-        return next(err);
-      }
-
+    User.findOne({
+      where: { email: req.body.email }
+    })
+    .then((user) => {
       if (!user) {
-        req.flash("notice", `Sign in failed. ${info.message}`);
+        req.flash("notice", `${req.body.email} does not exist`);
         res.redirect("/users/signin");
+      } else {
+        passport.authenticate('local', function(err, user, info) {
+          if (err) {
+            return next(err);
+          }
+
+          if (!user) {
+            req.flash("notice", `Sign in failed. ${info.message}`);
+            res.redirect("/users/signin");
+          }
+
+          req.logIn(user, function(err) {
+            if (err) {
+              return next("Sign in failed. I am from userController.js");
+            }
+
+            req.flash("notice", "You've successfully signed in!");
+            res.redirect("/");
+          });
+        })(req, res, next);
       }
-
-      req.logIn(user, function(err) {
-        if (err) {
-          return next(err);
-        }
-
-        req.flash("notice", "You've successfully signed in!");
-        res.redirect("/");
-      });
-    })(req, res, next);
+    })
   },
 
   signOut(req, res, next) {
