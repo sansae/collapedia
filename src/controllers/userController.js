@@ -2,7 +2,8 @@ const userQueries = require("../db/queries.users.js");
 const sgMail = require('@sendgrid/mail');
 const passport = require("passport");
 const User = require("../db/models").User;
-var stripe = require("stripe")(process.env.SECRET_KEY);
+const keys = require("../config/keys");
+var stripe = require("stripe")(keys.stripeSecretKey);
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -77,40 +78,42 @@ module.exports = {
   },
 
   upgradeForm(req, res, next) {
-    res.render("users/upgrade");
+    res.render("users/upgrade", {stripePublishableKey: keys.stripePublishableKey});
   },
 
   upgrade(req, res, next) {
+    const email = req.body.stripeEmail;
     const token = req.body.stripeToken;
-    const email = req.body.stripeEmail
 
     User.findOne({
-      where: { email: req.body.stripeEmail }
+      where: { email }
     })
     .then((user) => {
-      console.log(user);
       if (user) {
-
-        const charge = stripe.charges.create({
-          amount: 1500,
-          currency: 'usd',
+        stripe.customers.create({
+          email,
           source: token,
-          receipt_email: email,
         })
-        .then((result) => {
-          console.log(result);
+        .then((customer) => {
+          stripe.charges.create({
+            amount: 1500,
+            currency: 'usd',
+            description: "Blocipedia",
+            customer: customer.id,
+          })
+          .then((charge) => {
+            if (charge) {
+              userQueries.changeRole(user);
+            }
 
-          if (result) {
-            req.flash("notice", "Congratulations. You upgraded to premium!");
-            res.redirect("/");
-          } else {
-            req.flash("notice", "Sorry. Something went wrong and your account was not upgraded. Please try again.");
-            res.redirect("/users/upgrade");
-          }
-
-          if (result) {
-            userQueries.changeRole(user);
-          }
+            if (charge) {
+              req.flash("notice", "Congratulations. You upgraded to premium!");
+              res.render("static/index");
+            } else {
+              req.flash("notice", "Sorry. Something went wrong and your account was not upgraded. Please try again.");
+              res.redirect("/users/upgrade");
+            }
+          })
         })
       } else {
         req.flash("notice", "Your account was not upgraded. Please use the email address that you used to sign up for Blocipedia.");

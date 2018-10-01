@@ -14,7 +14,7 @@
 
         <% if (currentUser) { %>
           <li class="nav-item" id="profile-link">
-            <a class="nav-link" href="/users/<%= currentUser.id %>">My Profile <span>(<%= currentUser.role %> user)</span></a>
+            <a class="nav-link" href="/users/<%= currentUser.id %>">My Profile <span>(<%= currentUser.username %> - <%= currentUser.role %> user)</span></a>
           </li>
           <% if (currentUser.role == "standard") { %>
             <li class="nav-item">
