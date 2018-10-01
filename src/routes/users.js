@@ -15,4 +15,6 @@ router.post("/users/signin", userController.signIn);
 
 router.get("/users/signout", userController.signOut);
 
+router.get("/users/upgrade", userController.upgradeForm);
+
 module.exports = router;

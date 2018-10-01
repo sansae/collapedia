@@ -5,3 +5,7 @@ body {
 #new-wiki-btn {
   margin-bottom: 20px;
 }
+
+#profile-link > a {
+  color: white;
+}
