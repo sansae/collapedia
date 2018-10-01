@@ -9,3 +9,11 @@ body {
 #profile-link > a {
   color: white;
 }
+
+#profile-link > a > span {
+  color: #78cad3;
+}
+
+#importantMsg > span {
+  color: red;
+}

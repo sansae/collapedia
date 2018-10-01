@@ -2,6 +2,7 @@ const userQueries = require("../db/queries.users.js");
 const sgMail = require('@sendgrid/mail');
 const passport = require("passport");
 const User = require("../db/models").User;
+var stripe = require("stripe")(process.env.SECRET_KEY);
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -77,5 +78,44 @@ module.exports = {
 
   upgradeForm(req, res, next) {
     res.render("users/upgrade");
-  }
+  },
+
+  upgrade(req, res, next) {
+    const token = req.body.stripeToken;
+    const email = req.body.stripeEmail
+
+    User.findOne({
+      where: { email: req.body.stripeEmail }
+    })
+    .then((user) => {
+      console.log(user);
+      if (user) {
+
+        const charge = stripe.charges.create({
+          amount: 1500,
+          currency: 'usd',
+          source: token,
+          receipt_email: email,
+        })
+        .then((result) => {
+          console.log(result);
+
+          if (result) {
+            req.flash("notice", "Congratulations. You upgraded to premium!");
+            res.redirect("/");
+          } else {
+            req.flash("notice", "Sorry. Something went wrong and your account was not upgraded. Please try again.");
+            res.redirect("/users/upgrade");
+          }
+
+          if (result) {
+            userQueries.changeRole(user);
+          }
+        })
+      } else {
+        req.flash("notice", "Your account was not upgraded. Please use the email address that you used to sign up for Blocipedia.");
+        res.redirect("/users/upgrade");
+      }
+    })
+  },
 }

@@ -45,4 +45,15 @@ module.exports = {
       }
     });
   },
+
+  changeRole(user) {
+    User.findOne({
+      where: { email: user.email }
+    })
+    .then((user) => {
+      user.update({
+        role: 'premium'
+      })
+    })
+  }
 }

@@ -10,71 +10,26 @@
     <main class="container">
       <h1>Upgrade Your Account</h1>
 
+      <% include ../static/partials/messages.ejs %>
+
       <p>Become a premium member today to create private wikis!</p>
 
       <form action="/users/upgrade" method="post">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" class="form-control" name="firstName" aria-describedby="firstNameHelp" placeholder="Enter First Name">
-
-          <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" name="lastName" aria-describedby="lastNameHelp" placeholder="Enter Last Name">
+        <%/*<!--collect payment information to send to /users/upgrade-->*/%>
+        <div>
+          <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_test_IdsJWAXbElCyJRAqLOzRUud6"
+            data-name="Stripe"
+            data-description="Upgrade to Premium"
+            data-amount="1500"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto"
+            data-zip-code="true">
+          </script>
         </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter Email">
-        </div>
-
-        <div class="form-group">
-          <label for="card">Card Number</label>
-          <input type="text" class="form-control" name="card" aria-describedby="cardHelp" placeholder="Enter Card Number">
-        </div>
-
-        <div class="form-group">
-          <label for="date">Date</label>
-          <input type="date" class="form-control" name="date" aria-describedby="dateHelp" placeholder="Enter Date">
-        </div>
-
-        <script
-          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="pk_test_TYooMQauvdEDq54NiTphI7jx"
-          data-amount="999"
-          data-name="Stripe.com"
-          data-description="Example charge"
-          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-          data-locale="auto"
-          data-zip-code="true">
-        </script>
-
-        <% /* %>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
-        </div>
-
-        <div class="form-group">
-          <label for="body">Body</label>
-          <textarea rows="4" class="form-control" name="body" placeholder="Enter Body"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="private">Private Wiki?</label>
-          <div class="radio">
-            <label class="radio-inline">
-              <input type="radio" name="private" value=true <%= currentUser.role == "premium" ? null : 'disabled' %> >
-              True
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="private" value=false checked>
-              False
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      <% */ %>
+        <small class="text-muted">1. Your credit card will be charged $15.00 for this transaction.</small><br>
+        <small class="text-muted" id="importantMsg">2. <span>Important!</span> Email must be the same as the one you used to sign up for Blocipedia</small>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
