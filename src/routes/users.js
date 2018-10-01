@@ -21,4 +21,6 @@ router.post("/users/upgrade", userController.upgrade);
 
 router.get("/users/downgrade", userController.downgradeForm);
 
+router.post("/users/downgrade", validation.checkPasswordConfirmation, userController.downgrade);
+
 module.exports = router;

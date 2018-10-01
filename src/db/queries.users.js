@@ -46,13 +46,21 @@ module.exports = {
     });
   },
 
-  changeRole(user) {
+  changeRole(user, action) {
+    let userRole;
+
     User.findOne({
       where: { email: user.email }
     })
     .then((user) => {
+      if (action === "charge") {
+        userRole = "premium";
+      } else {
+        userRole = "standard";
+      }
+      
       user.update({
-        role: 'premium'
+        role: userRole
       })
     })
   }

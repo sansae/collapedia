@@ -4,6 +4,7 @@ const passport = require("passport");
 const User = require("../db/models").User;
 const keys = require("../config/keys");
 var stripe = require("stripe")(keys.stripeSecretKey);
+const authHelper = require("../auth/helpers");
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -60,7 +61,7 @@ module.exports = {
 
           req.logIn(user, function(err) {
             if (err) {
-              return next("Sign in failed. I am from userController.js");
+              return next("Sign in failed.");
             }
 
             req.flash("notice", "You've successfully signed in!");
@@ -103,7 +104,8 @@ module.exports = {
           })
           .then((charge) => {
             if (charge) {
-              userQueries.changeRole(user);
+              let action = "charge";
+              userQueries.changeRole(user, action);
             }
 
             if (charge) {
@@ -124,5 +126,52 @@ module.exports = {
 
   downgradeForm(req, res, next) {
     res.render("users/downgrade");
-  }
+  },
+
+  downgrade(req, res, next) {
+    User.findOne({
+      where: { email: req.body.email }
+    })
+    .then((user) => {
+      if (user) {
+        // if user found, check password
+        if (authHelper.comparePass(req.body.password, user.password)) {
+          // find customer info to retrieve charge id
+          stripe.customers.list({
+            email: req.body.email
+          })
+          .then((customer) => {
+            stripe.charges.list({
+              customer: customer.data[0].id
+            })
+            .then((chargeId) => {
+              // issue the refund using the charge id
+              stripe.refunds.create({
+                charge: chargeId.data[0].id
+              })
+              .then((refund) => {
+                if (refund) {
+                  let action = "refund";
+
+                  userQueries.changeRole(user, action);
+
+                  req.flash("notice", "Your account has been downgraded to Standard. Feel free to upgrade again if you change your mind!");
+                  res.render("static/index");
+                } else {
+                  req.flash("notice", "Sorry. Something went wrong and your account was not downgraded. Please try again.");
+                  res.redirect("/users/upgrade");
+                }
+              })
+            })
+          })
+        } else {
+          req.flash("notice", "The password you entered was incorrect. Please try again.");
+          res.redirect("/users/downgrade");
+        }
+      } else {
+        req.flash("notice", "That email is not in our database. Please use the email address that you used to sign up for Blocipedia.");
+        res.redirect("/users/downgrade");
+      }
+    })
+  },
 }
