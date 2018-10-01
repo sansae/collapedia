@@ -24,7 +24,7 @@
           <label for="private">Private Wiki?</label>
           <div class="radio">
             <label class="radio-inline">
-              <input type="radio" name="private" value=true <%= wiki.private == true ? 'checked' : '' %>>
+              <input type="radio" name="private" value=true <%= currentUser.role == "premium" ? null : 'disabled' %> <%= wiki.private == true ? 'checked' : '' %>>
               True
             </label>
             <label class="radio-inline">
