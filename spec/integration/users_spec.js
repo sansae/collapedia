@@ -46,4 +46,14 @@ describe("routes : users ", () => {
       });
     });
   });
-})
+
+  describe("GET /users/downgrade", () => {
+    it("should render a view with a downgrade form", (done) => {
+      request.get(`${base}downgrade`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Downgrade");
+        done();
+      });
+    });
+  });
+});

@@ -121,4 +121,8 @@ module.exports = {
       }
     })
   },
+
+  downgradeForm(req, res, next) {
+    res.render("users/downgrade");
+  }
 }

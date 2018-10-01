@@ -19,4 +19,6 @@ router.get("/users/upgrade", userController.upgradeForm);
 
 router.post("/users/upgrade", userController.upgrade);
 
+router.get("/users/downgrade", userController.downgradeForm);
+
 module.exports = router;
