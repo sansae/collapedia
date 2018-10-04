@@ -28,7 +28,8 @@ module.exports = {
     let newWiki = {
       title: req.body.title,
       body: req.body.body,
-      private: JSON.parse(req.body.private)
+      private: JSON.parse(req.body.private),
+      userId: req.user.id,
     };
 
     wikiQueries.addWiki(newWiki, (err, wiki) => {
