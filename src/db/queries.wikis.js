@@ -63,4 +63,17 @@ module.exports = {
       });
     });
   },
+
+  changePrivacy(user) {
+    Wiki.findAll({
+      where: { userId: user.id }
+    })
+    .then((wikis) => {
+      wikis.forEach((wiki) => {
+        wiki.update({
+          private: false
+        })
+      })
+    })
+  },
 }

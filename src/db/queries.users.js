@@ -58,7 +58,7 @@ module.exports = {
       } else {
         userRole = "standard";
       }
-      
+
       user.update({
         role: userRole
       })

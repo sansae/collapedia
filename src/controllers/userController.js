@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const sgMail = require('@sendgrid/mail');
 const passport = require("passport");
 const User = require("../db/models").User;
@@ -154,6 +155,7 @@ module.exports = {
                   let action = "refund";
 
                   userQueries.changeRole(user, action);
+                  wikiQueries.changePrivacy(user);
 
                   req.flash("notice", "Your account has been downgraded to Standard. Feel free to upgrade again if you change your mind!");
                   res.render("static/index");
