@@ -10,25 +10,6 @@
     <main class="container">
       <h1>New Wiki</h1>
 
-      <textarea id="text-input" oninput="this.editor.update()" rows="6" cols="60">Type **Markdown** here.</textarea>
-
-      <div id="preview"> </div>
-      <script src="lib/markdown.js"></script>
-
-      <script>
-        function Editor(input, preview) {
-          this.update = function () {
-            preview.innerHTML = markdown.toHTML(input.value);
-          };
-          input.editor = this;
-          this.update();
-        }
-        var $ = function (id) { return document.getElementById(id); };
-        new Editor($("text-input"), $("preview"));
-      </script>
-
-      <%/*<!--the original form is below; works fine; just trying to get the markdown above to work first before adding it to the actual form below--> */%>
-      <% /* %>
       <form action="/wikis/create" method="post">
         <div class="form-group">
           <label for="title">Title</label>
@@ -56,7 +37,6 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <% */ %>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
