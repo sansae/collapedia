@@ -9,10 +9,6 @@
     <main class="container">
       <h1>Edit Wiki</h1>
 
-      <%- marked('I am **marked**') %>
-
-      <%- markdown.toHTML("Hello **World**") %>
-
       <div style="border: 2px solid grey; padding: 15px;">
         <form action="/wikis/<%= wiki.id %>/update" method="post">
           <div class="form-group">
@@ -46,54 +42,6 @@
           </a>
         </form>
       </div>
-
-      <br>
-
-      <h1>Edit Preview</h1>
-
-      <div style="border: 2px solid grey; padding: 15px;">
-        <div>
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input id="title-preview" value="" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title" disabled>
-          </div>
-          <div class="form-group">
-            <label for="body">Body</label>
-            <textarea id="body-preview" rows="4" class="form-control" name="body" placeholder="Enter Body" disabled></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="private">Private Wiki?</label>
-            <div id="private-preview" class="radio">
-              <label class="radio-inline">
-                <input type="radio" name="private" value=true disabled>
-                True
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="private" value=false disabled>
-                False
-              </label>
-            </div>
-        </div>
-      </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-      <script>
-        document.getElementById('title-preview').value = document.getElementById('title-input').value;
-        var titleInput = document.getElementById('title-input');
-        titleInput.onkeyup = function() {
-          document.getElementById('title-preview').value = marked(this.value);
-        }
-
-        document.getElementById('body-preview').innerHTML = document.getElementById('body-input').innerHTML;
-        var bodyInput = document.getElementById('body-input');
-        bodyInput.onkeyup = function() {
-          document.getElementById('body-preview').innerHTML = marked(this.value);
-        }
-
-        // document.getElementById('private-preview').checked.value = document.getElementById('private-radio').checked.value;
-      </script>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>

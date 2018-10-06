@@ -9,7 +9,7 @@
 
     <main class="container">
       <div class="form-group">
-        <h1><%= wiki.title %></h1>
+        <h1><%- wiki.title %></h1>
         <% if (wiki.private) { %>
           <small class="text-muted">Private Wiki</small>
         <% } else { %>
@@ -29,8 +29,7 @@
         <% } %>
       </div>
 
-      <p><%= wiki.body %></p>
-
+      <p><%- wiki.body %></p>
 
       <hr>
 
