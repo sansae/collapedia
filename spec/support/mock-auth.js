@@ -6,12 +6,14 @@ module.exports = {
       id = req.body.userId || id;
       username = req.body.username || username;
       email = req.body.email || email;
+      role = req.body.role || role;
 
       if (id && id != 0) {
         req.user = {
           "id": id,
           "username": username,
-          "email": email
+          "email": email,
+          "role": role,
         };
       } else if (id == 0) {
         delete req.user;

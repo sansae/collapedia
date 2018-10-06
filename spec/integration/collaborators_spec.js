@@ -59,6 +59,7 @@ describe("routes : collaborators", () => {
       request.get({
         url: "http://localhost:3000/auth/fake",
         form: {
+          username: 'hi world',
           role: "premium",
           userId: this.user.id
         }
