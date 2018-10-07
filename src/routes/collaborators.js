@@ -5,4 +5,6 @@ const collaboratorController = require("../controllers/collaboratorController");
 
 router.get("/wikis/:id/new", collaboratorController.new);
 
+router.post("/wikis/:id/create", collaboratorController.create);
+
 module.exports = router;

@@ -17,3 +17,25 @@ body {
 #importantMsg > span {
   color: red;
 }
+
+#collaborator {
+  margin-top: 40px;
+  display: flex;
+  border: 2px solid grey;
+}
+
+#collaborator-user {
+  border: 2px solid green;
+  flex-grow: 1;
+}
+
+#collaborator-current {
+  border: 2px solid red;
+  flex-grow: 1;
+}
+
+@media only screen and (min-width: 649px) {
+  #collaborator-user, #collaborator-current {
+    width: 50%;
+  }
+}

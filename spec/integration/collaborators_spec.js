@@ -76,4 +76,34 @@ describe("routes : collaborators", () => {
       });
     });
   });
+
+  describe("POST /wikis/:wikiId/create", () => {
+    it("should add new collaborators to the private wiki", (done) => {
+      const options = {
+        url: `${base}wikis/${this.wiki.id}/create`,
+        form: {
+          username: "johnson",
+          email: "johnson@gmail.com",
+          wikiId: this.wiki.id,
+          userId: this.user.id
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+        Collaborator.findOne({
+          where: { username: "johnson" }
+        })
+        .then((collaborator) => {
+          expect(collaborator).not.toBeNull();
+          expect(collaborator.username).toBe("johnson");
+          expect(collaborator.id).not.toBeNull();
+          done();
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
+      });
+    });
+  });
 });
