@@ -27,4 +27,17 @@ module.exports = {
       }
     });
   },
+
+  deleteCollaborator(id, callback) {
+    return Collaborator.findById(id)
+    .then((collaborator) => {
+      collaborator.destroy()
+      .then((res) => {
+        callback(null, collaborator);
+      })
+      .catch((err) => {
+        callback(err);
+      });
+    });
+  },
 }

@@ -21,17 +21,21 @@ body {
 #collaborator {
   margin-top: 40px;
   display: flex;
-  border: 2px solid grey;
+
 }
 
-#collaborator-user {
-  border: 2px solid green;
+#collaborator-user, #collaborator-current {
   flex-grow: 1;
+  padding: 10px;
 }
 
-#collaborator-current {
-  border: 2px solid red;
-  flex-grow: 1;
+#collaborator-user > h4, #collaborator-current > h4 {
+  margin-left: 15px;
+  text-decoration: underline;
+}
+
+.list-group-item {
+  border-width: inherit;
 }
 
 @media only screen and (min-width: 649px) {

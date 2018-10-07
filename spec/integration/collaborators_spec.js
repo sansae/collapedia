@@ -94,6 +94,7 @@ describe("routes : collaborators", () => {
           where: { username: "johnson" }
         })
         .then((collaborator) => {
+          console.log(collaborator);
           expect(collaborator).not.toBeNull();
           expect(collaborator.username).toBe("johnson");
           expect(collaborator.id).not.toBeNull();
@@ -102,6 +103,25 @@ describe("routes : collaborators", () => {
         .catch((err) => {
           console.log(err);
           done();
+        });
+      });
+    });
+  });
+
+  describe("POST /wikis/:wikiId/destroyCollaborator", () => {
+    it("should remove a collaborator from a private wiki", (done) => {
+      Collaborator.all()
+      .then((collaborators) => {
+        const collaboratorsBeforeDelete = collaborators.length;
+
+        expect(collaboratorsBeforeDelete).toBe(1);
+
+        request.post(`${base}wikis/${this.wiki.id}/destroyCollaborator`, (err, res, body) => {
+          Collaborator.all()
+          .then((collaborators) => {
+            expect(collaborators.length).toBe(collaboratorsBeforeDelete - 1);
+            done();
+          });
         });
       });
     });

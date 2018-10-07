@@ -47,7 +47,21 @@ module.exports = {
           req.flash("notice", "Collaborator added!");
           res.redirect(`/wikis/${req.params.id}/new`);
         }
-      })
-    })
-  }
+      });
+    });
+  },
+
+  destroy(req, res, next) {
+    Collaborator.findById(req.body.deleteBtn)
+    .then((collaborator) => {
+      collaboratorQueries.deleteCollaborator(req.body.deleteBtn, (err, collaborator) => {
+        if (err) {
+          res.redirect(500, `/wikis/${req.params.id}/new`);
+        } else {
+          req.flash("notice", "Collaborator deleted!");
+          res.redirect(`/wikis/${req.params.id}/new`);
+        }
+      });
+    });
+  },
 }
