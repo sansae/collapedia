@@ -20,12 +20,23 @@
         <% wikis.forEach((wiki) => { %>
           <% if (wiki.private) { %>
             <% if (currentUser) { %>
-              <% if (currentUser.role === "premium" || currentUser.role === "admin") { %>
+              <% if (currentUser.id === wiki.userId || currentUser.role === "admin") { %>
                 <li class="list-group-item">
                   <a href="/wikis/<%= wiki.id %>">
                     <%- wiki.title %>
                   </a>
+                  <small>created by: <%- currentUser.username %></small>
                 </li>
+              <% } else { %>
+                <% collaborators.forEach((collaborator) => { %>
+                  <% if (collaborator.wikiId === wiki.id) { %>
+                    <li class="list-group-item">
+                      <a href="/wikis/<%= wiki.id %>">
+                        <%- wiki.title %>
+                      </a>
+                    </li>
+                  <% } %>
+                <% }) %>
               <% } %>
             <% } %>
           <% } else { %>
@@ -33,6 +44,9 @@
               <a href="/wikis/<%= wiki.id %>">
                 <%- wiki.title %>
               </a>
+              <% if (currentUser && currentUser.id === wiki.userId) { %>
+                <small>created by: <%- currentUser.username %></small>
+              <% } %>
             </li>
           <% } %>
         <% }) %>

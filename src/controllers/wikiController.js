@@ -2,6 +2,7 @@ const wikiQueries = require("../db/queries.wikis.js");
 const Authorizer = require("../policies/wiki");
 const Wiki = require("../db/models").Wiki;
 const markdown = require( "markdown" ).markdown;
+const Collaborator = require("../db/models").Collaborator;
 
 module.exports = {
   wiki(req, res, next) {
@@ -14,7 +15,20 @@ module.exports = {
           wiki.body = markdown.toHTML(wiki.body);
         })
 
-        res.render("wikis/wiki", {wikis});
+        if (req.user) {
+          Collaborator.findAll({
+            where: { userId: req.user.id }
+          })
+          .then((collaborators) => {
+            if (collaborators) {
+              res.render("wikis/wiki", {wikis, collaborators});
+            } else {
+              res.render("wikis/wiki", {wikis});
+            }
+          })
+        } else {
+          res.render("wikis/wiki", {wikis});
+        }
       }
     });
   },
