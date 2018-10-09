@@ -39,7 +39,7 @@ module.exports = {
     if (authorized) {
       res.render("wikis/new");
     } else {
-      req.flash("notice", "You are not authorized to do that");
+      req.flash("notice", "You are not authorized to do that.");
       res.redirect("/wikis");
     }
   },

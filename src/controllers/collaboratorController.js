@@ -21,7 +21,7 @@ module.exports = {
           if (authorized) {
           res.render("collaborators/new", {users, wiki, collaborators});
           } else {
-            req.flash("notice", "You are not authorized to do that");
+            req.flash("notice", "Oops. It looks like you can't do that. Upgrade to premium so you can create private wikis and add collaborators!");
             res.redirect("/wikis");
           };
         })
