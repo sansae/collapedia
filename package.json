@@ -1,5 +1,5 @@
 {
-  "name": "blocipedia-node",
+  "name": "Collapedia",
   "version": "1.0.0",
   "description": "An application that allows users to create, collaborate, and share wikis",
   "main": "src/server.js",
