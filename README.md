@@ -36,15 +36,16 @@ $ npm test spec/integration/<name-of-spec-test>
 ```
 
 ```
-$ npm test spec/integration/<name-of-spec-test>
+$ npm test spec/unit/<name-of-spec-test>
 ```
 
 ## Built With
 
-* [Express.js](https://expressjs.com/) and [PostgreSQL](https://www.postgresql.org/) - for the back-end
+* [Express.js](https://expressjs.com/), [PostgreSQL](https://www.postgresql.org/) and [Sequelize.js](https://www.npmjs.com/package/sequelize) - for the back-end
 * [Stripe](https://stripe.com/) - for payment processing
 * [Passport.js](http://www.passportjs.org/) - for login/logout
 * [Sendgrid](https://sendgrid.com/) - for sending email notifications
+* [Bcrypt](https://www.npmjs.com/package/bcrypt) - for encrypting user passwords
 
 ## Authors
 
