@@ -34,8 +34,16 @@ body {
   text-decoration: underline;
 }
 
+#collaborator-user > form > .list-group > li {
+  margin-bottom: 5px;
+}
+
+.list-group > li {
+  margin-bottom: 5px;
+}
+
 .list-group-item {
-  border-width: inherit;
+  border-width: medium;
 }
 
 @media only screen and (min-width: 649px) {
