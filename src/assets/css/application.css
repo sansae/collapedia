@@ -2,8 +2,30 @@ body {
   padding-top: 70px;
 }
 
-.container > .jumbotron {
-  text-align: center;
+#title {
+  margin-top: 30px;
+}
+
+.jumbotron {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.features > section {
+  margin-bottom: 40px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  width: 125px;
+  height: 120px;
+  margin: 0 auto;
+  background: #e9ecef;
 }
 
 #new-wiki-btn {
@@ -53,11 +75,5 @@ body {
 @media only screen and (min-width: 649px) {
   #collaborator-user, #collaborator-current {
     width: 50%;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  #welcome-title {
-    font-size: 50px;
   }
 }

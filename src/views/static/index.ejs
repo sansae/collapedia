@@ -7,14 +7,50 @@
   <body>
     <% include ./partials/navbar.ejs %>
 
-    <main class="container">
-      <header class="jumbotron my-4">
-        <% include ./partials/messages.ejs %>
+    <main class="container text-center">
+      <h3 id="title">Collapedia: Social, Markdown Wikis</h3>
 
-        <h1 class="display-4" id="welcome-title">Welcome to Collapedia</h1>
+      <% include ./partials/messages.ejs %>
+
+      <header class="jumbotron my-4">
         <p class="lead">An application that allows users to create, collaborate, and share wikis.</p>
         <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
       </header>
+
+      <section class="row features">
+        <section class="col-lg-4">
+          <h5 class="card-title">INFORMATION</h5>
+          <p class="card-text">Knowledge is power. Share it with the world.</p>
+        </section>
+
+        <section class="col-lg-4">
+          <h5 class="card-title">PRIVACY</h5>
+          <p class="card-text">Create private wikis. Choose your collaborators.</p>
+        </section>
+
+        <section class="col-lg-4">
+          <h5 class="card-title">EXTRA FEATURES</h5>
+          <p class="card-text">Upgrade for more features. Powered by Stripe.</p>
+        </section>
+      </section>
+
+      <section class="row features">
+        <section class="col-lg-2">
+        </section>
+
+        <section class="col-lg-4">
+          <p class="box">Create, Share, View</p>
+          <p>Free Plan</p>
+        </section>
+
+        <section class="col-lg-4">
+          <p class="box">Full Control, Privacy, Add Collaborators</p>
+          <p>Premium Plan<br>Starting at $15</p>
+        </section>
+
+        <section class="col-lg-2">
+        </section>
+      </section>
     </main>
 
     <% include ./partials/baseScripts.ejs %>
