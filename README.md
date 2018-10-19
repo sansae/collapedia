@@ -47,6 +47,11 @@ $ npm test spec/unit/<name-of-spec-test>
 * [Sendgrid](https://sendgrid.com/) - for sending email notifications
 * [Bcrypt](https://www.npmjs.com/package/bcrypt) - for encrypting user passwords
 
+## Upcoming Features
+
+* Implement "like" feature for wikis
+* Implement "favorite" feature for wikis
+
 ## Authors
 
 * **Kent Saeteurn** - [sansae](https://github.com/sansae)
