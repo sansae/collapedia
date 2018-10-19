@@ -56,4 +56,40 @@ describe("routes : users ", () => {
       });
     });
   });
+
+  describe("GET /users/:id", () => {
+    beforeEach((done) => {
+      this.user;
+      this.wiki;
+
+      User.create({
+        username: "osiris",
+        email: "osiris@gmail.com",
+        password: "123456",
+        role: "standard"
+      })
+      .then((user) => {
+        this.user = user;
+
+        Wiki.create({
+          title: "Basketball",
+          body: "A game played with a basketball and a hoop.",
+          private: false,
+          userId: this.user.id
+        })
+        .then((wiki) => {
+          this.wiki = wiki;
+          done();
+        });
+      });
+    });
+
+    it("should display the user's wikis", (done) => {
+      request.get(`${base}${this.user.id}`, (err, res, body) => {
+        expect(body).toContain("My Wikis");
+        expect(body).toContain("Basketball")
+        done();
+      })
+    })
+  })
 });
