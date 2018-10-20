@@ -23,4 +23,6 @@ router.get("/users/downgrade", userController.downgradeForm);
 
 router.post("/users/downgrade", validation.checkPasswordConfirmation, userController.downgrade);
 
+router.get("/users/:id", userController.show);
+
 module.exports = router;

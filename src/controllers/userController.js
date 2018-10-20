@@ -6,6 +6,7 @@ const User = require("../db/models").User;
 const keys = require("../config/keys");
 var stripe = require("stripe")(keys.stripeSecretKey);
 const authHelper = require("../auth/helpers");
+const markdown = require( "markdown" ).markdown;
 
 module.exports = {
   signUpForm(req, res, next) {
@@ -175,5 +176,19 @@ module.exports = {
         res.redirect("/users/downgrade");
       }
     })
-  },
+  },// end downgrade
+
+  show(req, res, next) {
+    userQueries.getUser(req.params.id, (err, result) => {
+      if (err || result.user == undefined) {
+        req.flash("notice", "No user found with that ID.");
+        res.redirect("/");
+      } else {
+        result.wikis.forEach((wiki) => {
+          wiki.title = markdown.toHTML(wiki.title);
+        })
+        res.render("users/show", {...result});
+      }
+    })
+  }
 }

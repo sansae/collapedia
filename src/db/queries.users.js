@@ -1,4 +1,5 @@
 const User = require("./models").User;
+const Wiki = require("./models").Wiki;
 const bcrypt = require("bcryptjs");
 const sgMail = require('@sendgrid/mail');
 
@@ -63,5 +64,33 @@ module.exports = {
         role: userRole
       })
     })
-  }
+  },
+
+  getUser(id, callback) {
+    let result = {};
+
+    User.findById(id)
+    .then((user) => {
+      if(!user) {
+        callback(404);
+      } else {
+        result["user"] = user;
+
+        Wiki.findAll({
+          where: { userId: user.id }
+        })
+        .then((wikis) => {
+          if(!wikis) {
+            callback(404);
+          } else {
+            result["wikis"] = wikis;
+            callback(null, result);
+          }
+        });
+      }
+    })
+    .catch((err) => {
+      callback(err);
+    });
+  },
 }

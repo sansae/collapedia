@@ -25,7 +25,9 @@
                   <a href="/wikis/<%= wiki.id %>">
                     <%- wiki.title %>
                   </a>
-                  <small>created by: <%- currentUser.username %></small>
+                  <% if (currentUser.id === wiki.userId) { %>
+                    <small>created by: <%- currentUser.username %></small>
+                  <% } %>
                 </li>
               <% } else { %>
                 <% collaborators.forEach((collaborator) => { %>

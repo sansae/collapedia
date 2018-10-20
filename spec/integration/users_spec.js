@@ -3,6 +3,7 @@ const server = require("../../src/server");
 const base = "http://localhost:3000/users/";
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
+const Wiki = require("../../src/db/models").Wiki;
 
 describe("routes : users ", () => {
   beforeEach((done) => {
