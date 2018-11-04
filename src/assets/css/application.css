@@ -72,6 +72,21 @@ body {
   border-width: medium;
 }
 
+#new-wiki-anchor {
+  color: black;
+  /*text-decoration: none;*/
+}
+
+#new-wiki-btn {
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 5px 5px;
+  padding: 10px 0;
+  margin: 0 auto;
+  width: 110px;
+  text-align: center;
+}
+
 @media only screen and (min-width: 649px) {
   #collaborator-user, #collaborator-current {
     width: 50%;
