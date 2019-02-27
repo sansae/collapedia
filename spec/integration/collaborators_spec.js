@@ -70,6 +70,7 @@ describe("routes : collaborators", () => {
 
     it("should render a new collaborator form", (done) => {
       request.get(`${base}wikis/${this.wiki.id}/new`, (err, res, body) => {
+        console.log(`${this.wiki.id}`);
         expect(err).toBeNull();
         expect(body).toContain("Add Collaborator");
         done();
