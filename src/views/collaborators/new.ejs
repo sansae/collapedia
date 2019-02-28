@@ -18,7 +18,7 @@
 
           <form action="/wikis/<%= wiki.id %>/create" method="post">
             <% users.forEach((user) => { %>
-              <% if (user.username !== currentUser.username) { %>
+              <% if (currentUser && user.username !== currentUser.username) { %>
                 <ul class="list-group">
                   <li class="list-group-item">
                     <button type="submit" name="btn" value="<%= user.id %>">Add</button> <%= user.username %>
